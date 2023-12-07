@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="js-calculator-EmreSimseker.css">
+   
+</head>
+<body>
+
+    <h1>Rekenmachine</h1>
+    <div class="grid-container">
+       
+        <div class="calculator-scherm" id="calculator-scherm"></div>
+        <button class="grid-item" id="btn-geschiedenis">Geschiedenis</button>
+        
+            <!-- nummer buttons -->
+        <button class="grid-item" id="btn-wis">C</button>
+        <button class="grid-item" id="btn-is">=</button>
+        <button class="grid-item" id="btn-0">0</button>
+        <button class="grid-item" id="btn-1">1</button>
+        <button class="grid-item" id="btn-2">2</button>
+        <button class="grid-item" id="btn-3">3</button>
+        <button class="grid-item" id="btn-4">4</button>
+        <button class="grid-item" id="btn-5">5</button>
+        <button class="grid-item" id="btn-6">6</button>
+        <button class="grid-item" id="btn-7">7</button>
+        <button class="grid-item" id="btn-8">8</button>
+        <button class="grid-item" id="btn-9">9</button>
+             <!-- operator buttons -->
+        <button class="grid-item" id="btn-plus">+</button>
+        <button class="grid-item" id="btn-keer">*</button>
+        <button class="grid-item" id="btn-haakrecht">(</button>
+        <button class="grid-item" id="btn-haaklinks">)</button>
+        <button class="grid-item" id="btn-punt">.</button>
+        <button class="grid-item" id="btn-min">-</button>
+        <button class="grid-item" id="btn-delen">/</button>
+        <button class="grid-item" id="btn-groterdan">&gt;</button>
+        
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var calculatorScreen = document.getElementById("calculator-scherm");
+            var buttons = document.querySelectorAll(".grid-item");
+            var geschiedenis = []; //array voor geschiedenis
+
+            function calculate(expression) {
+                return Function('"use strict";return (' + expression + ')')();
+            }
+
+            buttons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    try {
+                        //checken of de tekst van de geklikte knop een nummer
+                        if (!isNaN(button.textContent) && button.textContent !== null) {
+                            calculatorScreen.textContent += button.textContent;
+                        } else if (button.textContent === "=") {
+                            //kijken of de som wiskundig mogelijk is
+                            if (/[^0-9.+\-*/()%]/.test(calculatorScreen.textContent)) {
+                                throw new Error("ongeldige invoer");
+                            }
+
+                            // stopt de contennt op het scherm in een erray
+                            geschiedenis.push(calculatorScreen.textContent);
+
+                            calculatorScreen.textContent = calculate(calculatorScreen.textContent);
+                            //wanneer je op C klikt, wordt het scherm gewist
+                        } else if (button.textContent === "C") {
+                            calculatorScreen.textContent = "";
+                        } else if (button.textContent === "Geschiedenis") {
+                            // haalt de geschiedenis uit erray en laat dit zien
+                            alert("Geschiedenis:\n" + geschiedenis.join("\n"));
+                        } else {
+                            // Zorgt ervoor dat je . - + / * kan invoeren
+                            if (/[.\d+*/>()-]/.test(button.textContent)) {
+                                calculatorScreen.textContent += button.textContent;
+                            }
+                        }
+                    } catch (error) {
+                        alert("er is een fout opgetreden: " + error.message);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
