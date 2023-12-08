@@ -1,0 +1,75 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#calculator-container {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 400px;
+    width: 100%;
+}
+
+#calculator-title {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 24px;
+    color: #333;
+}
+
+#calculator-screen {
+    grid-column: span 4;
+    background-color: #eee;
+    border-bottom: 1px solid #ccc;
+    padding: 20px;
+    font-size: 28px;
+    text-align: right;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 20px;
+}
+
+.grid-item {
+    background-color: #5a5a5a;
+    color: #ffffff;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 20px;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.grid-item:hover {
+    background-color: #333;
+}
+
+#btn-is {
+    grid-column: span 2; 
+    height: 60px; 
+}
+
+#btn-geschiedenis {
+    grid-column: span 4; 
+    margin-top: 10px; 
+}
